@@ -57,7 +57,7 @@
     border-radius: 3px;
   }
   
-  /* Estrutura da página */
+  /* Estrutura da página para Desktop */
   .container {
     display: flex;
     margin-top: 60px; /* compensação para o header fixo */
@@ -146,5 +146,44 @@
     margin-bottom: 10px;
     border: 1px solid #ddd;
     text-align: center;
+  }
+  
+  /* Responsividade para Mobile */
+  @media (max-width: 768px) {
+    /* Ajusta layout para uma coluna única */
+    .container {
+      display: block;
+      margin: 0;
+      padding-top: 60px; /* Compensa o espaço do header */
+    }
+  
+    /* Remove a posição fixa das sidebars e expande para o conteúdo principal */
+    .sidebar, .sidebar-popular {
+      position: static;
+      width: 100%;
+      height: auto;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  
+    /* Ajusta o estilo dos botões de categoria no mobile */
+    .sidebar .category-btn {
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    /* Coloca as categorias e a aba popular dentro do conteúdo */
+    .content {
+      margin: 0;
+      padding: 10px;
+    }
+  
+    .carousel-slide {
+      height: 150px;
+    }
+  
+    .product-row {
+      overflow-x: scroll;
+    }
   }
   
