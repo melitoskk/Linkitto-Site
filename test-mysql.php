@@ -1,31 +1,18 @@
 <?php
-// Configurações do banco de dados
-$host = "localhost"; // Em HostGator, geralmente é "localhost"
-$user = "linkit58_admin"; // Substitua pelo usuário do banco de dados
-$password = "^+(<E;Mf%0QFVVT"; // Substitua pela senha do banco
-$database = "linkit58_main"; // Substitua pelo nome do banco de dados
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Conexão com o MySQL
-$conn = new mysqli($host, $user, $password, $database);
+$host = "localhost";
+$user = "usuario_nomeUsuario";
+$password = "senha_do_banco";
+$database = "usuario_nomeDoBanco";
 
-// Verificar conexão
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
+// Testar conexão
+$conn = mysqli_connect($host, $user, $password, $database);
+
+if (!$conn) {
+    die("Erro de conexão: " . mysqli_connect_error());
 }
-echo "Conexão bem-sucedida!<br>";
-
-// Testar uma consulta simples
-$sql = "SELECT NOW() AS agora";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "Data e hora atual do servidor: " . $row['agora'];
-    }
-} else {
-    echo "Nenhum dado encontrado.";
-}
-
-// Fechar conexão
-$conn->close();
+echo "Conexão bem-sucedida!";
 ?>
