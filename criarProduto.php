@@ -27,8 +27,10 @@
         <select id="categoria_id" name="categoria_id" onchange="atualizarEpisodios()">
             <option value="">Selecione uma categoria</option>
             <?php
-            // Conectar ao banco de dados
-            $servername = "50.116.87.79";
+            include 'config.php';
+
+            // Conexão com o banco de dados
+            $servername = $env_ip;
             $username = "linkit58_admin";
             $password = "^+(<E;Mf%0QFVVT";
             $dbname = "linkit58_main";
@@ -76,9 +78,10 @@
 </body>
 </html>
 <?php
+include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conectar ao banco de dados
-    $servername = "50.116.87.79";
+    // Conexão com o banco de dados
+    $servername = $env_ip;
     $username = "linkit58_admin";
     $password = "^+(<E;Mf%0QFVVT";
     $dbname = "linkit58_main";

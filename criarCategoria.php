@@ -1,6 +1,8 @@
 <?php
-// Defina as variáveis de conexão
-$servername = "50.116.87.79";  // ou IP do servidor, se for remoto
+include 'config.php';
+
+// Conexão com o banco de dados
+$servername = $env_ip;  // ou IP do servidor, se for remoto
 $username = "linkit58_admin";  // Nome do usuário MySQL
 $password = "^+(<E;Mf%0QFVVT";  // Senha do usuário MySQL
 $dbname = "linkit58_main"; // Nome do banco de dados

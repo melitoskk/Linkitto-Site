@@ -1,6 +1,8 @@
 <?php
+include 'config.php';
+
 // Conexão com o banco de dados
-$servername = "50.116.87.79";
+$servername = $env_ip;
 $username = "linkit58_admin";
 $password = "^+(<E;Mf%0QFVVT";
 $dbname = "linkit58_main"; // Nome do banco de dados
