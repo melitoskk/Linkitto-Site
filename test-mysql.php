@@ -4,9 +4,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $host = "localhost";
-$user = "usuario_nomeUsuario";
-$password = "senha_do_banco";
-$database = "usuario_nomeDoBanco";
+$user = "linkit58_admin";
+$password = "^+(<E;Mf%0QFVVT";
+$database = "^+(<E;Mf%0QFVVT";
 
 // Testar conexão
 $conn = mysqli_connect($host, $user, $password, $database);
