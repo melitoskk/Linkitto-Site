@@ -52,7 +52,12 @@ function criarProduto($conn, $categoria_id_produto, $nome_produto, $id_produto, 
 }
 
 // Conexão com o banco de dados
-$conn = new mysqli($env_ip, "linkit58_admin", "^+(<E;Mf%0QFVVT", "linkit58_main");
+$servername = $env_ip;
+$username = $env_user;
+$password = $env_password;
+$dbname = $env_db; // Nome do banco de dados
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

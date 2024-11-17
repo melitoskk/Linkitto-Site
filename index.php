@@ -3,9 +3,9 @@ include 'config.php';
 
 // Conexão com o banco de dados
 $servername = $env_ip;
-$username = "linkit58_admin";
-$password = "^+(<E;Mf%0QFVVT";
-$dbname = "linkit58_main"; // Nome do banco de dados
+$username = $env_user;
+$password = $env_password;
+$dbname = $env_db; // Nome do banco de dados
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
