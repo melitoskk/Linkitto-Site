@@ -26,36 +26,68 @@ body {
   z-index: 1000;
 }
 
+.header .logo-link {
+  display: inline-block; /* Permite que o link ocupe apenas o espaço necessário */
+  height: 70%; /* Mantém a altura do link */
+  transition: transform 0.3s ease; /* Adiciona transição suave para a transformação */
+}
+
 .header .logo {
-  font-size: 24px;
-  font-weight: bold;
+  height: 100%; /* Mantém a altura da imagem como desejado */
+  display: block; /* Remove qualquer margem inferior da imagem */
+  transition: transform 0.3s ease; /* Adiciona transição suave para a imagem */
+}
+
+.header .logo-link:hover .logo {
+  transform: scale(1.1) rotate(5deg); /* Aumenta a imagem e faz ela balançar */
 }
 
 .header .nav-icons a {
-  color: #fff;
-  margin-left: 10px;
-  text-decoration: none;
+    font-size: 24px;  /* Tamanho inicial do ícone */
+    margin: 0 10px;   /* Espaçamento entre os ícones */
+    color: white;      /* Cor inicial dos ícones */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    transition: transform 0.3s ease, color 0.3s ease; /* Adiciona uma transição suave */
 }
 
-.header .search-bar {
+.header .nav-icons a:hover {
+    color: #007bff;  /* Cor quando o ícone for clicado */
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* Ajuste conforme necessário */
+}
+
+.search-bar input {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Espaço para o botão */
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.search-bar button {
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  right: 4px; /* Ajuste de posição */
+  transform: translateY(-50%);
+  background-color: blue;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 8px
 }
 
-.header .search-bar input {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-}
-
-.header .search-bar button {
-  margin-left: 5px;
-  padding: 5px 10px;
-  border: none;
-  background-color: #007bff;
+.search-bar button i {
+  font-size: 16px;
   color: #fff;
-  border-radius: 3px;
 }
+/* ------------------------------ Fim da Header ------------------------------ */
 
 /* ------------------------------ Layout ------------------------------ */
 .container {
@@ -63,23 +95,6 @@ body {
   margin-top: 60px; /* Compensação para o header fixo */
 }
 
-.sidebar, .sidebar-popular {
-  position: fixed;
-  top: 60px;
-  background-color: #ccc;
-  width: 250px;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.sidebar {
-  left: 0;
-}
-
-.sidebar-popular {
-  right: 0;
-}
 
 .content {
   margin: 0 270px; /* Margem para afastar das sidebars */
@@ -88,10 +103,32 @@ body {
   overflow-y: auto;
 }
 
+
+
 /* ------------------------------ Categorias ------------------------------ */
-.category-btn {
+/* Sidebar Categorias */
+.sidebar-categorias {
+  position: fixed;
+  top: 60px;
+  background-color: #ccc;
+  width: 250px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 10px;
+  left: 0;
+}
+
+.sidebar-categorias h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Botão de Categoria */
+.sidebar-categorias .category-btn {
+  font-size: 18px;
+  font-weight: bold; /* Negrito */
+  border-radius: 8px;
   display: block;
-  background-color: #ff8000;
   color: #fff;
   padding: 20px;
   margin-bottom: 10px;
@@ -99,7 +136,177 @@ body {
   border: none;
   cursor: pointer;
   width: 100%;
+  background-size: cover; /* Mantém a imagem de fundo como cover */
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; /* Necessário para posicionar o overlay */
+  overflow: hidden;
+  transition: transform 0.3s ease; /* Transição suave para o aumento */
 }
+
+/* Overlay para escurecer a imagem de fundo */
+.sidebar-categorias .category-btn::before {
+  content: ''; /* Necessário para criar o pseudoelemento */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Cor preta com 30% de opacidade */
+  z-index: 1; /* Garante que o overlay fique acima da imagem, mas abaixo do texto */
+}
+
+/* Efeito de Hover - Piscar e Aumentar o tamanho */
+.sidebar-categorias .category-btn:hover {
+  transform: scale(1.1); /* Aumenta o tamanho do botão */
+  animation: blink 0.6s ease; /* Animação piscar */
+}
+
+/* Definição da animação "blink" */
+@keyframes blink {
+  0% {
+    opacity: 1; /* Visível */
+  }
+  50% {
+    opacity: 0.5; /* Meio visível (pisca) */
+  }
+  100% {
+    opacity: 1; /* Retorna à visibilidade normal */
+  }
+}
+
+/* O texto do botão deve ficar acima do overlay */
+.sidebar-categorias .category-btn span {
+  position: relative;
+  z-index: 2; /* Garante que o texto fique acima do overlay */
+}
+
+/* ------------------------------ Fim Categorias ------------------------------ */
+
+/* ------------------------------ Popular ------------------------------ */
+.sidebar-popular {
+  position: fixed;
+  top: 60px;
+  background-color: #ccc;
+  width: 260px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 10px;
+  right: 0;
+}
+
+.sidebar-popular h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.popular-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ajuste para garantir que ocupe o máximo possível de espaço */
+  box-sizing: border-box;
+  height: 120px; /* Garante altura fixa para o card */
+  overflow: hidden;
+}
+
+.popular-card .popular-card-image {
+  position: relative;
+  width: 40%; /* Largura da imagem será 50% do card */
+  height: 100%; /* A altura será 100% da altura do card */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* A imagem vai se alinhar ao topo da div */
+}
+
+.popular-card .popular-card-image img {
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Ajusta a altura da imagem para ser ligeiramente menor que a altura da div */
+  object-fit: cover; /* Garante que a imagem preencha a div sem distorcer */
+  object-position: top; /* Ajusta a imagem para começar do topo */
+}
+
+
+
+/* Sobreposição do logo */
+.popular-card .logo-overlay {
+  position: absolute;
+  top: 2px;  /* Alinha ao topo */
+  left: 2px; /* Alinha à esquerda */
+  background-color: rgba(255, 255, 255, 0.7); /* Fundo semitransparente */
+  border-radius: 50%;
+}
+
+.popular-card .logo-overlay img {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+}
+
+/* Detalhes do produto */
+.popular-card-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinha o texto à esquerda */
+  width: 60%; /* Detalhes ocupam a outra metade da largura */
+  box-sizing: border-box;
+  height: 100%; /* Certifique-se que os detalhes ocupem a altura inteira */
+  padding-left: 10px; /* Adiciona um espaçamento entre a imagem e os detalhes */
+}
+
+.popular-card-name {
+  font-size: 19px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.popular-card-category,
+.popular-card-id {
+  font-size: 10px;
+  color: #777;
+  margin-bottom: 2px;
+}
+
+/* Disclaimer */
+.popular-card .disclaimer {
+  font-size: 8px;
+  color: #999;
+  text-align: left;
+}
+
+/* Botão */
+.popular-card .buy-button {
+  display: block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  width: 100%; /* Botão ocupa toda a largura do card */
+  box-sizing: border-box;
+  margin-top: 2px;
+  bottom: 0;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.popular-card .buy-button:hover {
+  background-color: #45a049;
+  transform: scale(1.1);
+}
+
 
 /* ------------------------------ Carousel ------------------------------ */
 .carousel {
@@ -120,136 +327,128 @@ body {
 }
 
 /* ------------------------------ Produtos ------------------------------ */
+.section-category{
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
 .product-row {
   display: flex;
-  overflow-x: auto;
-  margin-top: 20px;
-  border: 1px solid #ddd;
+  overflow-x: auto;  /* Permite rolagem horizontal */
   padding: 10px;
+  gap: 16px;  /* Adiciona um espaço consistente entre os cards */
 }
 
-.product-card {
-  min-width: 150px;
-  height: 200px;
+.product-row .product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
   background-color: #fff;
-  margin-right: 10px;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px; /* Largura fixa para cada card */
+  box-sizing: border-box;
+  height: auto;  /* Garante que a altura seja ajustável */
+  flex-shrink: 0;  /* Impede que os cards diminuam de tamanho */
 }
 
-.product-row h2 {
-  flex-basis: 100%; /* H2 ocupa toda a largura */
-  margin-bottom: 10px;
-  color: #ff9800; /* Destaque para o título */
+.product-card .product-image {
+  position: relative;
+  width: 100%; /* A imagem ocupará 80% da largura do card */
+  padding-top: 100%; /* Mantém a proporção quadrada */
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px; /* Espaço entre imagem e detalhes */
 }
 
-.product-card {
-  background-color: #f9f9f9;
-}
-
-/* ------------------------------ Popular ------------------------------ */
-.sidebar-popular h2 {
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.popular-card {
-  background-color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.popular-card img {
-  width: 100%;
-}
-
-/* ------------------------------ Menu Lateral à Direita ------------------------------ */
-.sidebar-right {
-  position: fixed;
+.product-card .product-image img {
+  position: absolute;
   top: 0;
-  right: 0;
-  width: 300px;
-  background-color: #fff;
-  padding: 20px;
-  border-left: 1px solid #ddd;
+  left: 0;
+  width: 100%;
   height: 100%;
-  overflow-y: auto;
+  object-fit: cover; /* Garante que a imagem seja centralizada */
 }
 
-.sidebar-right h3 {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+/* Sobreposição do logo */
+.product-card .logo-overlay {
+  position: absolute;
+  top: 8px;  /* Alinha ao topo */
+  left: 8px; /* Alinha à esquerda */
+  background-color: rgba(255, 255, 255, 0.7); /* Fundo semitransparente */
+  border-radius: 50%;
+}
+
+.product-card .logo-overlay img {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
+/* Detalhes do produto */
+.product-card .product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinha o texto à esquerda */
+  width: 100%; /* Detalhes ocupam toda a largura disponível */
+}
+
+.product-card .product-name {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+}
+
+.product-card .product-category,
+.product-id {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
+
+/* Disclaimer */
+.product-card .disclaimer {
+  font-size: 12px;
+  color: #999;
+  margin: 8px 0 0 0; /* Espaço acima do disclaimer */
+  text-align: left;
+}
+
+/* Botão */
+.product-card .buy-button {
+  display: block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
   text-align: center;
+  width: 100%; /* Botão ocupa toda a largura do card */
+  box-sizing: border-box;
+  margin-top: 2px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.product-card-right {
-  margin-bottom: 15px;
+.product-card .buy-button:hover {
+  background-color: #45a049;
+  transform: scale(1.1);
 }
 
-.sidebar-right img {
-  width: 100px;
-  margin-right: 10px;
+.product-row::-webkit-scrollbar {
+  height: 8px;  /* Ajusta a altura da barra de rolagem */
 }
 
-/* ------------------------------ Responsividade para Mobile ------------------------------ */
-@media (max-width: 768px) {
-  /* Ajusta layout para uma coluna única */
-  .container {
-      display: block;
-      margin: 0;
-      padding-top: 60px; /* Compensa o espaço do header */
-  }
-
-  /* Remove a posição fixa das sidebars e expande para o conteúdo principal */
-  .sidebar, .sidebar-popular {
-      position: static;
-      width: 100%;
-      height: auto;
-      padding: 10px;
-      margin-bottom: 20px;
-  }
-
-  /* Ajusta o estilo dos botões de categoria no mobile */
-  .sidebar .category-btn {
-      width: 100%;
-      margin: 5px 0;
-  }
-
-  /* Coloca as categorias e a aba popular dentro do conteúdo */
-  .content {
-      margin: 0;
-      padding: 10px;
-  }
-
-  .carousel-slide {
-      height: 150px;
-  }
-
-  .product-row {
-      overflow-x: scroll;
-  }
+.product-row::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
 }
 
-/* ------------------------------ Outras Classes de Layout ------------------------------ */
-.categoria {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
+.product-row::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }
-
-.episodio {
-  margin-left: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-}
-
-.produto {
-  margin-left: 40px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-top: 5px;
-}
+/* ------------------------------ Popular ------------------------------ */
