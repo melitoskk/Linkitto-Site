@@ -212,7 +212,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%; /* Ajuste para garantir que ocupe o máximo possível de espaço */
   box-sizing: border-box;
-  height: 120px; /* Garante altura fixa para o card */
+  height: 125px; /* Garante altura fixa para o card */
   overflow: hidden;
 }
 
@@ -273,17 +273,20 @@ body {
 }
 
 .popular-card-category,
-.popular-card-id {
+.popular-card-id  {
   font-size: 10px;
   color: #777;
   margin-bottom: 2px;
 }
-
+.popular-card-views{
+  font-size: 10px;
+  color: #777;
+}
 /* Disclaimer */
 .popular-card .disclaimer {
   font-size: 8px;
   color: #999;
-  text-align: left;
+  text-align: center;
 }
 
 /* Botão */

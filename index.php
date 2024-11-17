@@ -192,6 +192,7 @@ $result_produtos_populares = $conn->query($sql_produtos_populares);
                         echo "<strong class='popular-card-name'>" . htmlspecialchars($produto['nome_produto']) . "</strong>";
                         echo "<p class='popular-card-category'>Categoria: " . htmlspecialchars($produto['categoria_nome']) . "</p>";
                         echo "<p class='popular-card-id'>ID: " . $produto['id_produto'] . "</p>";
+                        echo "<p class='popular-card-views'>Views: " . $produto['clicks'] . "</p>";
                         echo "<small class='disclaimer'>
         Você comprará por <a href='" . $produto['link_loja'] . "' target='_blank'>" . htmlspecialchars($produto['nome_loja']) . "</a>
       </small>";
