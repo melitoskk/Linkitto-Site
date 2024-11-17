@@ -65,16 +65,21 @@ $result_produtos_populares = $conn->query($sql_produtos_populares);
             <div class="search-suggestions" id="search-suggestions"></div>
         </div>
         <nav class="nav-icons">
-            <a href="https://www.instagram.com/linkitto.br/" class="instagram-icon"><i class="fab fa-instagram-square"></i></a>
-            <a href="https://www.youtube.com/@linkitto_br" class="youtube-icon"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.tiktok.com/@linkitto.br" class="tiktok-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/linkitto.br/" class="instagram-icon" target="_blank">
+                <i class="fab fa-instagram-square"></i>
+            </a>
+            <a href="https://www.youtube.com/@linkitto_br" class="youtube-icon" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.tiktok.com/@linkitto.br" class="tiktok-icon" target="_blank">
+                <i class="fab fa-tiktok"></i>
+            </a>
             <div id="dark-mode-toggle">
                 <i class="darkmode-icon sun fas fa-sun"></i>
                 <i class="darkmode-icon moon fas fa-moon"></i>
             </div>
-
-
         </nav>
+
 
     </header>
 
