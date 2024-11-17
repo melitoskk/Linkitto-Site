@@ -1,6 +1,14 @@
 <?php
 include 'config.php';
 
+session_start();
+
+// Verificar se o usuário está logado, se não estiver, redireciona para o login
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php"); // Redireciona para a página de login
+    exit();
+}
+
 // Função para obter categorias
 function getCategorias($conn)
 {
@@ -64,6 +72,64 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0) {
+        $imagem = $_FILES['imagem'];
+
+        // Diretório onde as imagens serão armazenadas
+        $diretorio_upload = 'uploads/';
+
+        // Verificar se o diretório existe
+        if (!is_dir($diretorio_upload)) {
+            mkdir($diretorio_upload, 0777, true); // Cria a pasta se não existir
+        }
+
+        // Obter a extensão do arquivo
+        $extensao = pathinfo($imagem['name'], PATHINFO_EXTENSION);
+
+        // Gerar um nome único para o arquivo
+        $nome_imagem = uniqid('img_', true) . '.' . $extensao;
+
+        // Caminho completo para o arquivo
+        $caminho_imagem = $diretorio_upload . $nome_imagem;
+
+        // Mover o arquivo para o diretório de uploads
+        if (move_uploaded_file($imagem['tmp_name'], $caminho_imagem)) {
+            // Gerar a URL para a imagem
+            $url_imagem = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $caminho_imagem;
+
+            // Exibir a URL para o usuário copiar
+            $exibir_url = "<input type='text' value='" . $url_imagem . "' readonly>";
+        } else {
+            $exibir_url = "Erro ao fazer upload da imagem. Tente novamente.";
+        }
+    } else {
+        $exibir_url = "Por favor, selecione uma imagem para fazer o upload.";
+    }
+
+    if (isset($_POST['alterar_urls'])) {
+        for ($i = 1; $i <= 5; $i++) {
+            if (isset($_POST['url_slide_' . $i])) {
+                $nova_url = $_POST['url_slide_' . $i];
+
+                // Se a URL estiver em branco, define NULL
+                if (empty($nova_url)) {
+                    $nova_url = NULL;
+                }
+
+                // Atualizar a URL do slide no banco de dados
+                $sql = "UPDATE slides SET url = " . ($nova_url ? "'$nova_url'" : "NULL") . " WHERE id = $i";
+                if ($conn->query($sql) === TRUE) {
+                    echo "URL do slide " . $i . " atualizada com sucesso!<br>";
+                } else {
+                    echo "Erro ao atualizar URL do slide " . $i . ": " . $conn->error . "<br>";
+                }
+            }
+        }
+    }
+
+
+
 
     // Criar Loja
     if (isset($_POST['criar_loja']) && !empty($_POST['nome_loja']) && !empty($_POST['imagem_loja']) && !empty($_POST['link_loja'])) {
@@ -133,6 +199,12 @@ $resultCategorias = getCategorias($conn);
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
     <script>
+        // Verificar se o usuário está logado
+        if (!localStorage.getItem("usuario_logado")) {
+            // Se não estiver logado, redireciona para a página de login
+            window.location.href = "login.php";
+        }
+
         // Função para atualizar as lojas com base na categoria selecionada
         function atualizarLojas() {
             var categoria_id = document.getElementById("categoria_produto_id").value;
@@ -153,9 +225,9 @@ $resultCategorias = getCategorias($conn);
     <hr>
 
     <!-- Formulário para Criar Loja -->
-    
+
     <form method="POST">
-    <h2>Criar Loja</h2>
+        <h2>Criar Loja</h2>
         <label for="nome_loja">Nome da Loja:</label>
         <input type="text" id="nome_loja" name="nome_loja" required><br><br>
 
@@ -169,9 +241,9 @@ $resultCategorias = getCategorias($conn);
     </form>
 
     <!-- Formulário para Criar Categoria -->
-    
+
     <form method="POST">
-    <h2>Criar Categoria</h2>
+        <h2>Criar Categoria</h2>
         <label for="nome_categoria">Nome da Categoria:</label>
         <input type="text" id="nome_categoria" name="nome_categoria" required><br><br>
 
@@ -184,9 +256,9 @@ $resultCategorias = getCategorias($conn);
     <hr>
 
     <!-- Formulário para Criar Produto -->
-    
+
     <form method="POST">
-    <h2>Criar Produto</h2>
+        <h2>Criar Produto</h2>
         <label for="categoria_produto_id">Categoria:</label>
         <select id="categoria_produto_id" name="categoria_produto_id" onchange="atualizarLojas()" required>
             <option value="">Selecione uma categoria</option>
@@ -227,6 +299,40 @@ $resultCategorias = getCategorias($conn);
         <button type="submit" name="criar_produto">Criar Produto</button>
     </form>
 
+    <!-- Formulário para Alterar Slides -->
+    <form method="POST">
+        <h2>Alterar URLs das Imagens</h2>
+
+        <!-- Puxar URLs do banco de dados -->
+        <?php
+        $resultSlides = $conn->query("SELECT * FROM slides LIMIT 5"); // Pega até 5 URLs da tabela 'slides'
+        $i = 1;
+        while ($row = $resultSlides->fetch_assoc()) {
+            echo "<label for='url_slide_" . $i . "'>URL da Imagem " . $i . ":</label>";
+            echo "<input type='url' id='url_slide_" . $i . "' name='url_slide_" . $i . "' value='" . $row['url'] . "'><br><br>";
+            $i++;
+        }
+        ?>
+
+        <button type="submit" name="alterar_urls">Alterar URLs</button>
+    </form>
+
+    <div class="upload-container">
+        <form method="POST" enctype="multipart/form-data">
+        <div class="imagem-url">
+            <?php
+            if (isset($exibir_url)) {
+                echo $exibir_url;
+            }
+            ?>
+        </div>
+            <h2>Upload de Imagem</h2>
+            <label for="imagem">Escolha ou arraste a imagem para o upload:</label>
+            <input type="file" name="imagem" id="imagem" required><br><br>
+
+            <button type="submit" name="upload_imagem">Enviar Imagem</button>
+        </form>
+    </div>
 </body>
 
 </html>
