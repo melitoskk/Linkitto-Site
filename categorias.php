@@ -62,9 +62,7 @@ if ($categoriaId != 0) {
 <body>
     <!-- Header -->
     <header class="header">
-        <a href="./" class="logo-link">
-            <img class="logo" src="../imgs/logo.png" alt="Logo">
-        </a>
+        
         <nav class="nav-icons">
             <a href="https://www.instagram.com/linkitto.br/" class="instagram-icon" target="_blank">
                 <i class="fab fa-instagram"></i>
@@ -80,7 +78,10 @@ if ($categoriaId != 0) {
                 <i class="darkmode-icon moon fas fa-moon"></i>
             </div>
         </nav>
-        <div class="search-bar">
+        <a href="./" class="logo-link">
+            <img class="logo" src="../imgs/logo.png" alt="Logo">
+        </a>
+        <div class="search-bar" id="search-bar">
             <input type="text" placeholder="Pesquisar" id="search-input" autocomplete="off">
             <button id="search-button"><i class="fas fa-search"></i></button>
             <div class="search-suggestions" id="search-suggestions"></div>
