@@ -103,7 +103,6 @@ startAutoSlide();
 // Pausa a navegação automática quando o mouse entra no carrossel
 if (carousel) {
     carousel.addEventListener('mouseenter', () => {
-        isHovered = true;
         clearInterval(autoSlideInterval); // Pausa a navegação automática
     });
 }
@@ -111,33 +110,25 @@ if (carousel) {
 // Retomar a navegação automática quando o mouse sai do carrossel
 if (carousel) {
     carousel.addEventListener('mouseleave', () => {
-        isHovered = false;
         resetAutoSlide(); // Reinicia o timer de navegação automática
     });
 }
 
-// Função para fechar as sugestões ao clicar fora da barra de pesquisa
-function closeSuggestions(event) {
-    const searchBar = document.getElementById('search-input');
+// Função para fechar as sugestões quando o campo de pesquisa perder o foco
+function closeSuggestions() {
+    const searchInput = document.getElementById('search-input');
     const searchSuggestions = document.getElementById('search-suggestions');
-    const searchBut = document.getElementById("search-button");
 
-    // Verifica se o clique foi fora da barra de pesquisa ou das sugestões
-    if (!searchBar.contains(event.target) && !searchSuggestions.contains(event.target) && !searchBut.contains(event.target)) {
+    // Verifica se o campo de pesquisa não está em foco e esconde as sugestões
+    if (document.activeElement !== searchInput) {
         searchSuggestions.style.display = 'none';
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
-        searchBar.classList.remove('active');  // Esconde o campo de pesquisa no mobile
+        searchInput.classList.remove('active');  // Fecha o campo de pesquisa no mobile
     }
 }
 
-// Detecta se o usuário clica no campo de pesquisa, sem considerar o toque no teclado
-document.getElementById('search-input').addEventListener('focus', () => {
-    const searchInput = document.getElementById('search-input');
-    searchInput.style.display = 'block';  // Garante que o campo fique visível quando tocado no mobile
-});
-
-// Evento para fechar sugestões quando clicar fora
-document.addEventListener('click', closeSuggestions);
+// Detecta quando o campo de pesquisa perde o foco (blur) e fecha as sugestões
+document.getElementById('search-input').addEventListener('blur', closeSuggestions);
 
 // Exibe sugestões ao clicar na barra de pesquisa
 document.getElementById('search-input').addEventListener('click', () => {
@@ -154,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", (e) => {
         e.preventDefault(); // Evita o comportamento padrão do botão
         if (window.innerWidth <= 767) {
-            searchInput.classList.toggle("active");
-            searchInput.style.display = 'block';
+            searchInput.classList.toggle("active"); // Aplica a animação com a classe "active"
+            searchInput.style.display = 'block'; // Força o display como block para a animação
             searchInput.focus();
         }
     });
@@ -209,7 +200,7 @@ function toggleSearchInputVisibility() {
 
 // Chama a função inicialmente e sempre que a tela for redimensionada
 toggleSearchInputVisibility();
-window.addEventListener('resize', toggleSearchInputVisibility);
+window.addEventListener('resize', toggleSearchInputVisibility());
 
 // Função para atualizar a ordem dos elementos no header, dependendo do tamanho da tela
 function updateHeaderOrder() {

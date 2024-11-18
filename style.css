@@ -114,6 +114,21 @@
    color: #fff;
  }
 
+ #search-input {
+  transform: translateX(100%); /* Começa fora da tela à direita */
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s; /* Animação suave */
+}
+
+/* Quando o campo de pesquisa estiver visível */
+#search-input.active {
+  transform: translateX(0); /* Move para a posição original */
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0s; /* Remove o delay */
+}
+
 
  /* ------------------------------ Fim da Header ------------------------------ */
 
