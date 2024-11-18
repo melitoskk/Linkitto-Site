@@ -1,0 +1,585 @@
+@media (max-width: 768px) {
+
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* ------------------------------ Header ------------------------------ */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000;
+    }
+
+    .header .logo-link {
+        display: inline-block;
+        /* Permite que o link ocupe apenas o espaço necessário */
+        height: 70%;
+        /* Mantém a altura do link */
+        transition: transform 0.3s ease;
+        /* Adiciona transição suave para a transformação */
+    }
+
+    .header .logo {
+        height: 100%;
+        /* Mantém a altura da imagem como desejado */
+        display: block;
+        /* Remove qualquer margem inferior da imagem */
+        transition: transform 0.3s ease;
+        /* Adiciona transição suave para a imagem */
+    }
+
+    .header .logo-link:hover .logo {
+        transform: scale(1.1) rotate(5deg);
+        /* Aumenta a imagem e faz ela balançar */
+    }
+
+    /* Estilos para o contêiner dos ícones */
+    .nav-icons {
+        margin: 0 10px 0 10px;
+        display: flex;
+        /* Usa flexbox para organizar os elementos */
+        justify-content: center;
+        /* Centraliza os ícones horizontalmente */
+        align-items: center;
+        /* Alinha os ícones verticalmente */
+        gap: 10px;
+        /* Espaçamento entre os ícones */
+    }
+
+    /* Estilos gerais para os links dos ícones */
+    .nav-icons a {
+        display: none;
+    }
+
+    /* Alterar cor ao passar o mouse */
+
+    /* Adicionalmente, você pode ajustar o tamanho dos ícones individualmente, se necessário */
+    .header .nav-icons a:hover {
+        color: #007bff;
+        /* Cor quando o ícone for clicado */
+    }
+
+    .search-bar {
+        position: relative;
+        width: 100%;
+        max-width: 300px;
+        /* Ajuste conforme necessário */
+    }
+
+    .search-bar input {
+        border-radius: 5px;
+        width: 100%;
+        padding: 10px 40px 10px 10px;
+        /* Espaço para o botão */
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .search-bar button {
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        right: 4px;
+        /* Ajuste de posição */
+        transform: translateY(-50%);
+        background-color: blue;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px
+    }
+
+    .search-bar button i {
+        font-size: 16px;
+        color: #fff;
+    }
+
+
+    /* ------------------------------ Fim da Header ------------------------------ */
+
+    /* ------------------------------ Layout ------------------------------ */
+
+    .content {
+        margin-top: 60px;
+        margin-left: 0;
+        /* Sem margem à esquerda, já que a sidebar ocupa 100% */
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    /* ------------------------------ CATEGORIAS ------------------------------ */
+    /* Adicionando estilo ao contêiner das categorias */
+    /* Contêiner das categorias */
+    .sidebar-categorias {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        /* Alinha os itens à esquerda */
+    }
+
+    /* Estilo básico dos botões */
+    .category-btn {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        padding: 40px 10px;
+        text-align: center;
+        box-sizing: border-box;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-grow: 1;
+        /* Faz o botão crescer */
+        margin-right: 3px;
+        /* Garante um espaço fixo de 3px entre os botões */
+    }
+
+    /* Efeito de hover nos botões */
+    .category-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilo para os textos nos botões */
+    .category-btn span {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ------------------------------ FIM CATEGORIAS ------------------------------ */
+    /* ------------------------------ CARROSSEL ------------------------------ */
+    /* Container do carousel */
+    .carousel-container {
+        margin-top: 10px;
+        position: relative;
+        width: 100%;
+        height: 200px;
+        /* Altura fixa do carrossel */
+        overflow: hidden;
+        /* Ocultar qualquer parte da imagem que ultrapasse o limite */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Contêiner de slides */
+    .carousel {
+        display: flex;
+        height: 100%;
+        /* A altura será 100% do contêiner */
+        width: 100%;
+        /* Garante que o carrossel ocupe 100% da largura disponível */
+        transition: transform 0.5s ease;
+        /* Transição suave entre os slides */
+    }
+
+    /* Slide individual */
+    .carousel-slide {
+        flex: 0 0 100%;
+        /* Garante que cada slide tenha 100% da largura do carrossel */
+        height: 100%;
+        /* Cada slide ocupa a altura do contêiner */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Impede que qualquer parte da imagem ultrapasse o slide */
+    }
+
+    /* Imagens dentro do carousel */
+    .carousel-slide img {
+        height: 100%;
+        /* A altura será 100% da altura do slide */
+        width: 100%;
+        /* A largura será ajustada para 100% da largura do slide */
+        object-fit: cover;
+        /* As imagens se ajustam para cobrir o espaço sem distorcer */
+        display: block;
+        object-position: center center;
+        /* Centraliza a imagem dentro do slide */
+    }
+
+    /* Botões de navegação */
+    .carousel-prev,
+    .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 2rem;
+        border-radius: 50%;
+        z-index: 10;
+    }
+
+    .carousel-prev {
+        left: 10px;
+    }
+
+    .carousel-next {
+        right: 10px;
+    }
+
+    .carousel-prev:hover,
+    .carousel-next:hover {
+        font-size: 36px;
+    }
+
+    /* ------------------------------ FIM CARROSSEL ------------------------------ */
+    /* ------------------------------ PRODUCT ROWS ------------------------------ */
+    .section-category {
+        border-radius: 8px;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .product-row {
+        display: flex;
+        overflow-x: auto;
+        /* Permite rolagem horizontal */
+        padding: 10px;
+        gap: 16px;
+        /* Adiciona um espaço consistente entre os cards */
+    }
+
+    .product-row .product-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 160px;
+        /* Largura fixa para cada card */
+        box-sizing: border-box;
+        height: auto;
+        /* Garante que a altura seja ajustável */
+        flex-shrink: 0;
+        /* Impede que os cards diminuam de tamanho */
+    }
+
+    .product-card-image {
+        position: relative;
+        width: 100%;
+        /* A imagem ocupará 80% da largura do card */
+        padding-top: 100%;
+        /* Mantém a proporção quadrada */
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        /* Espaço entre imagem e detalhes */
+    }
+
+    .product-card-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Garante que a imagem seja centralizada */
+    }
+
+    /* Sobreposição do logo */
+    .product-card .logo-overlay {
+        position: absolute;
+        top: 8px;
+        /* Alinha ao topo */
+        left: 8px;
+        /* Alinha à esquerda */
+        background-color: rgba(255, 255, 255, 0.7);
+        /* Fundo semitransparente */
+        border-radius: 50%;
+    }
+
+    .product-card .logo-overlay img {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Detalhes do produto */
+    .product-card-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* Alinha o texto à esquerda */
+        width: 100%;
+        /* Detalhes ocupam toda a largura disponível */
+    }
+
+    .product-card-name {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+    }
+
+    .product-card-category,
+    .product-card-id {
+        font-size: 14px;
+        color: #777;
+        margin: 0;
+    }
+
+    .product-card-views {
+        font-size: 10px;
+        color: #777;
+    }
+
+    /* Disclaimer */
+    .product-card .disclaimer {
+        font-size: 10px;
+        color: #999;
+        margin: 8px 0 0 0;
+        /* Espaço acima do disclaimer */
+        text-align: center;
+        /* Centraliza o texto */
+        width: 100%;
+        /* Garante que o disclaimer ocupe toda a largura do card */
+    }
+
+
+    /* Botão */
+    .product-card .buy-button {
+        font-weight: bold;
+        /* Negrito */
+        display: block;
+        padding: 8px 16px;
+        background-color: blue;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        text-align: center;
+        width: 100%;
+        /* Botão ocupa toda a largura do card */
+        box-sizing: border-box;
+        margin-top: 2px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .product-card .buy-button:hover {
+        background-color: rgb(2, 2, 145);
+        transform: scale(1.1);
+    }
+
+    .product-row::-webkit-scrollbar {
+        height: 8px;
+        /* Ajusta a altura da barra de rolagem */
+    }
+
+    .product-row::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    .product-row::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+
+
+    #search-suggestions {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #search-suggestions::-webkit-scrollbar {
+        width: 8px;
+        /* Ajusta a altura da barra de rolagem */
+    }
+
+    #search-suggestions::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    #search-suggestions::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+
+    .suggestion {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .suggestion:hover {
+        background-color: #f0f0f0;
+    }
+
+    .suggestion a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .search-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 8px;
+        margin-top: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        /* Ajuste para garantir que ocupe o máximo possível de espaço */
+        box-sizing: border-box;
+        height: 125px;
+        /* Garante altura fixa para o card */
+        overflow: hidden;
+    }
+
+    .search-card .search-card-image {
+        position: relative;
+        width: 40%;
+        /* Largura da imagem será 50% do card */
+        height: 100%;
+        /* A altura será 100% da altura do card */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        /* A imagem vai se alinhar ao topo da div */
+    }
+
+    .search-card .search-card-image img {
+        border-radius: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Ajusta a altura da imagem para ser ligeiramente menor que a altura da div */
+        object-fit: cover;
+        /* Garante que a imagem preencha a div sem distorcer */
+        object-position: top;
+        /* Ajusta a imagem para começar do topo */
+    }
+
+
+
+    /* Sobreposição do logo */
+    .search-card .logo-overlay {
+        position: absolute;
+        top: 2px;
+        /* Alinha ao topo */
+        left: 2px;
+        /* Alinha à esquerda */
+        background-color: rgba(255, 255, 255, 0.7);
+        /* Fundo semitransparente */
+        border-radius: 50%;
+    }
+
+    .search-card .logo-overlay img {
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Detalhes do produto */
+    .search-card-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* Alinha o texto à esquerda */
+        width: 60%;
+        /* Detalhes ocupam a outra metade da largura */
+        box-sizing: border-box;
+        height: 100%;
+        /* Certifique-se que os detalhes ocupem a altura inteira */
+        padding-left: 10px;
+        /* Adiciona um espaçamento entre a imagem e os detalhes */
+    }
+
+    .search-card-name {
+        font-size: 19px;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .search-card-category,
+    .search-card-id {
+        font-size: 10px;
+        color: #777;
+        margin-bottom: 2px;
+    }
+
+    .search-card-views {
+        font-size: 10px;
+        color: #777;
+    }
+
+    /* Disclaimer */
+    .search-card .disclaimer {
+        font-size: 8px;
+        color: #999;
+        text-align: center;
+        /* Centraliza o texto */
+        width: 100%;
+        /* Garante que o disclaimer ocupe toda a largura do card */
+    }
+
+    /* Botão */
+    .search-card .buy-button {
+        font-weight: bold;
+        /* Negrito */
+        display: block;
+        padding: 8px 16px;
+        background-color: blue;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        text-align: center;
+        width: 100%;
+        /* Botão ocupa toda a largura do card */
+        box-sizing: border-box;
+        margin-top: 1px;
+        bottom: 0;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .search-card .buy-button:hover {
+        background-color: rgb(2, 2, 145);
+        transform: scale(1.1);
+    }
+
+}
