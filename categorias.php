@@ -55,8 +55,7 @@ if ($categoriaId != 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linkitto - <?= $categoria ? htmlspecialchars($categoria['nome']) : 'Todos os Produtos' ?></title>
     <link rel="icon" href="./imgs/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="styleMobile.css">
-    <link rel="stylesheet" href="darkmode.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 

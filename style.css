@@ -140,20 +140,13 @@
  /* Adicionando estilo ao contêiner das categorias */
  /* Contêiner das categorias */
  .menu-categorias {
+  padding: 8px;
    background-color: #ccc;
    display: flex;
    flex-wrap: wrap;
    width: 100%;
    gap: 10px;
- }
-
- /* Estilos dos botões de categoria */
- .menu-categorias {
-   background-color: #ccc;
-   display: flex;
-   flex-wrap: wrap;
-   width: 100%;
-   gap: 10px;
+   border-radius: 8px;
  }
 
  .category-btn {
@@ -884,6 +877,7 @@
      height: calc(100vh - 60px);
      overflow-y: auto;
      padding: 10px;
+     border-radius: 0;
    }
 
    .menu-categorias .category-btn {

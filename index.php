@@ -44,7 +44,6 @@ $slides = $conn->query("SELECT * FROM slides WHERE url != '' LIMIT 5");
     <title>Linkitto</title>
     <link rel="icon" href="./imgs/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="darkmode.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
