@@ -123,7 +123,6 @@ function closeSuggestions() {
     if (document.activeElement !== searchInput) {
         searchSuggestions.style.display = 'none';
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
-        searchInput.classList.remove('active');  // Fecha o campo de pesquisa no mobile
     }
 }
 
