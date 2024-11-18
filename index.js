@@ -158,17 +158,11 @@ document.getElementById('search-input').addEventListener('click', () => {
 });
 
 // Exibe ou oculta a barra de pesquisa em dispositivos móveis
-document.addEventListener("DOMContentLoaded", () => {
-    const searchButton = document.getElementById("search-button");
-    const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById('search-button');
+const searchBar = document.querySelector('.search-bar');
 
-    searchButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Evita o comportamento padrão do botão
-        if (window.innerWidth <= 767) {
-            searchInput.classList.toggle("active"); // Aplica a animação com a classe "active"
-            searchInput.style.display = 'block'; // Força o display como block para a animação
-        }
-    });
+searchButton.addEventListener('click', () => {
+    searchBar.classList.toggle('active');
 });
 
 // Ajuste do comportamento de fechamento ao clicar fora do campo no mobil
@@ -199,11 +193,10 @@ window.addEventListener('resize', atualizarLayoutCards);
 // Função para garantir que o search-input fique visível no desktop
 
 // Chama a função inicialmente e sempre que a tela for redimensionada
-toggleSearchInputVisibility();
-window.addEventListener('resize', toggleSearchInputVisibility());
 
 // Função para atualizar a ordem dos elementos no header, dependendo do tamanho da tela
 function updateHeaderOrder() {
+    console.log('mudou a ordem')
     const header = document.querySelector('.header');
     const logo = document.querySelector('.logo-link');
     const searchBar = document.querySelector('.search-bar');
@@ -211,8 +204,8 @@ function updateHeaderOrder() {
 
     if (window.matchMedia("(max-width: 767px)").matches) {
         // Mobile: logo, navicons, search bar
-        header.appendChild(logo);
         header.appendChild(navIcons);
+        header.appendChild(logo);
         header.appendChild(searchBar);
     } else {
         // Desktop: logo, search bar, navicons

@@ -11,124 +11,160 @@
  }
 
  /* ------------------------------ Header ------------------------------ */
- .header {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 60px;
-   background-color: #333;
-   color: #fff;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 0 20px;
-   z-index: 1000;
-   box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
- }
-
- .header .logo-link {
-   display: inline-block;
-   /* Permite que o link ocupe apenas o espaço necessário */
-   height: 70%;
-   /* Mantém a altura do link */
-   transition: transform 0.3s ease;
-   /* Adiciona transição suave para a transformação */
- }
-
- .header .logo {
-   height: 100%;
-   /* Mantém a altura da imagem como desejado */
-   display: block;
-   /* Remove qualquer margem inferior da imagem */
-   transition: transform 0.3s ease;
-   /* Adiciona transição suave para a imagem */
- }
-
- .header .logo-link:hover .logo {
-   transform: scale(1.1) rotate(5deg);
-   /* Aumenta a imagem e faz ela balançar */
- }
-
- /* Estilos para o contêiner dos ícones */
- .nav-icons {
-   margin: 0 10px 0 10px;
-   display: flex;
-   /* Usa flexbox para organizar os elementos */
-   justify-content: center;
-   /* Centraliza os ícones horizontalmente */
-   align-items: center;
-   /* Alinha os ícones verticalmente */
-   gap: 10px;
-   /* Espaçamento entre os ícones */
- }
-
- /* Estilos gerais para os links dos ícones */
- .nav-icons a {
-   display: none;
- }
-
- /* Alterar cor ao passar o mouse */
-
- /* Adicionalmente, você pode ajustar o tamanho dos ícones individualmente, se necessário */
- .header .nav-icons a:hover {
-   color: #007bff;
-   /* Cor quando o ícone for clicado */
- }
-
- .search-bar {
-   position: relative;
-   width: 100%;
-   max-width: 300px;
-   /* Ajuste conforme necessário */
- }
-
- .search-bar input {
-   display: none;
-   border-radius: 5px;
-   width: 100%;
-   padding: 10px 40px 10px 10px;
-   /* Espaço para o botão */
-   border: 1px solid #ccc;
-   font-size: 14px;
- }
-
- .search-bar button {
-   border-radius: 5px;
-   position: absolute;
-   top: 50%;
-   right: 4px;
-   /* Ajuste de posição */
-   transform: translateY(-50%);
-   background-color: blue;
-   border: none;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 8px
- }
-
- .search-bar button i {
-   font-size: 16px;
-   color: #fff;
- }
-
- #search-input {
-  transform: translateX(100%); /* Começa fora da tela à direita */
-  opacity: 0;
-  visibility: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s; /* Animação suave */
+ /* Estilo Geral da Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ícones à esquerda e logo no meio */
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 
-/* Quando o campo de pesquisa estiver visível */
-#search-input.active {
-  transform: translateX(0); /* Move para a posição original */
-  opacity: 1;
-  visibility: visible;
-  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0s; /* Remove o delay */
+/* Logo */
+.logo-link {
+  display: inline-block;
+  height: 70%;
+  transition: transform 0.3s ease;
+  flex-grow: 1; /* Permite que a logo ocupe o espaço restante */
+  display: flex;
+  justify-content: center; /* Centraliza a logo dentro do espaço */
 }
 
+.logo {
+  height: 100%;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover .logo {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Navegação dos Ícones */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start; /* Alinha os ícones à esquerda */
+}
+
+.nav-icons a {
+  color: #fff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.nav-icons a:hover {
+  color: #007bff;
+}
+
+/* Barra de Pesquisa */
+.search-bar {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+#search-input {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  z-index: 1005;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.search-bar button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: blue;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar button i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Quando Ativo (ao clicar no botão) */
+.search-bar.active #search-input {
+  display: block;
+}
+
+#search-suggestions {
+  background-color: #d7d7d7;
+  display: none;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  padding: 10px;
+  z-index: 1004;
+  border: 1px solid #ccc;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  border-radius: 0 0 8px 8px;
+  box-sizing: border-box;
+}
+
+#search-suggestions.visible {
+  display: block;
+}
+
+#search-suggestions .horizontal-card {
+  margin-top: 10px;
+}
+
+#search-suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+#search-suggestions::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+#search-suggestions::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.suggestion {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion:hover {
+  background-color: #f0f0f0;
+}
+
+.suggestion a {
+  text-decoration: none;
+  color: #333;
+}
 
  /* ------------------------------ Fim da Header ------------------------------ */
 
@@ -373,54 +409,6 @@
    background-color: #555;
  }
 
-
- #search-suggestions {
-   display: none;
-   position: absolute;
-   top: 100%;
-   left: 0;
-   width: 100%;
-   background-color: #fff;
-   border: 1px solid #ccc;
-   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-   z-index: 10;
-   max-height: 300px;
-   overflow-y: auto;
-   border-radius: 0 0 8px 8px;
- }
-
- #search-suggestions .horizontal-card {
-   margin-top: 10px;
- }
-
- #search-suggestions::-webkit-scrollbar {
-   width: 8px;
-   /* Ajusta a altura da barra de rolagem */
- }
-
- #search-suggestions::-webkit-scrollbar-thumb {
-   background-color: #888;
-   border-radius: 10px;
- }
-
- #search-suggestions::-webkit-scrollbar-thumb:hover {
-   background-color: #555;
- }
-
- .suggestion {
-   padding: 10px;
-   cursor: pointer;
- }
-
- .suggestion:hover {
-   background-color: #f0f0f0;
- }
-
- .suggestion a {
-   text-decoration: none;
-   color: #333;
- }
-
  /* ------------------------------ CARDS ------------------------------ */
  /* ------------------------------ horizontais ------------------------------ */
  .card {
@@ -618,7 +606,7 @@
 
  /* Pesquisa com transição */
  body.dark-mode #search-suggestions {
-   background-color: #1e1e1e;
+   background-color: #464646;
    border: 1px solid black;
  }
 
@@ -686,11 +674,6 @@
  body.dark-mode .card .card-details {
    color: #e0e0e0;
    /* Texto claro nos detalhes do card */
- }
-
- body.dark-mode #search-suggestions {
-   background-color: #1e1e1e;
-   border: 1px solid black;
  }
 
  /* Contêiner do ícone de alternância */
