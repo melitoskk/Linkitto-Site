@@ -28,18 +28,18 @@ if ($searchQuery) {
     // Exibe os resultados da busca
     if ($result->num_rows > 0) {
         while ($produto = $result->fetch_assoc()) {
-            echo "<div class='search-card'>";
-            echo "<div class='search-card-image'>";
+            echo "<div class='card horizontal-card'>";
+            echo "<div class='card-image'>";
             echo "<img src='" . $produto['imagem_produto'] . "' alt='" . htmlspecialchars($produto['nome_produto']) . "' class='main-image'>";
             echo "<div class='logo-overlay'><img src='" . $produto['logo_loja'] . "' alt='" . htmlspecialchars($produto['nome_loja']) . "'></div>";
             echo "</div>";
-            echo "<div class='search-card-details'>";
-            echo "<strong class='search-card-name'>" . htmlspecialchars($produto['nome_produto']) . "</strong>";
-            echo "<p class='search-card-category'>Categoria: " . htmlspecialchars($produto['categoria_nome']) . "</p>";
-            echo "<p class='search-card-id'>ID: " . $produto['id_produto'] . "</p>";
+            echo "<div class='card-details'>";
+            echo "<strong class='card-name'>" . htmlspecialchars($produto['nome_produto']) . "</strong>";
+            echo "<p class='card-category'>Categoria: " . htmlspecialchars($produto['categoria_nome']) . "</p>";
+            echo "<p class='card-id'>ID: " . $produto['id_produto'] . "</p>";
             echo "<small class='disclaimer'>
-        Você comprará por <a href='" . $produto['link_loja'] . "' target='_blank'>" . htmlspecialchars($produto['nome_loja']) . "</a>
-      </small>";
+                                    Você comprará por <a href='" . $produto['link_loja'] . "' target='_blank'>" . htmlspecialchars($produto['nome_loja']) . "</a>
+                                  </small>";
             echo "<a href='" . $produto['link_produto'] . "' target='_blank' onclick='registerClick(" . $produto['id_produto'] . ")' class='buy-button'>Ver Produto</a>";
             echo "</div>";
             echo "</div>";
