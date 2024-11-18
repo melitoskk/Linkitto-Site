@@ -155,9 +155,9 @@ window.addEventListener('touchstart', function(event) {
     const searchInput = document.getElementById('search-input');
     const searchSuggestions = document.getElementById('search-suggestions');
 
-    // Se o clique for fora do campo de pesquisa e das sugestões, esconde a pesquisa
+    // Se o clique for fora do campo de pesquisa e das sugestões, esconde as sugestões
     if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
-        searchSuggestions.style.display = 'none';
+        searchSuggestions.style.display = 'none';  // Apenas esconde as sugestões, sem afetar o foco
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
     }
 });
