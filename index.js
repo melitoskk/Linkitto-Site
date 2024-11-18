@@ -125,7 +125,30 @@ function closeSuggestions() {
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
     }
 }
+document.addEventListener('click', (event) => {
+    const searchInput = document.getElementById('search-input');
+    const suggestionsDiv = document.getElementById('search-suggestions');
 
+    // Verifica se o clique foi fora do input e das sugestões
+    if (
+        !searchInput.contains(event.target) && // Não está no input
+        !suggestionsDiv.contains(event.target) // Não está nas sugestões
+    ) {
+        suggestionsDiv.style.display = 'none'; // Esconde as sugestões
+        suggestionsDiv.innerHTML = ''; // Limpa o conteúdo (opcional)
+    }
+});
+
+// Exibe sugestões ao clicar na barra de pesquisa
+document.getElementById('search-input').addEventListener('click', () => {
+    const searchInput = document.getElementById('search-input');
+    const suggestionsDiv = document.getElementById('search-suggestions');
+
+    if (searchInput.value.trim() !== '') {
+        suggestionsDiv.style.display = 'block'; // Exibe as sugestões
+        fetchSuggestions(); // Carrega as sugestões, se necessário
+    }
+});
 
 // Exibe sugestões ao clicar na barra de pesquisa
 document.getElementById('search-input').addEventListener('click', () => {
@@ -144,22 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.innerWidth <= 767) {
             searchInput.classList.toggle("active"); // Aplica a animação com a classe "active"
             searchInput.style.display = 'block'; // Força o display como block para a animação
-            searchInput.focus();
         }
     });
 });
 
-// Ajuste do comportamento de fechamento ao clicar fora do campo no mobile
-window.addEventListener('touchstart', function(event) {
-    const searchInput = document.getElementById('search-input');
-    const searchSuggestions = document.getElementById('search-suggestions');
-
-    // Se o clique for fora do campo de pesquisa e das sugestões, esconde as sugestões
-    if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
-        searchSuggestions.style.display = 'none';  // Apenas esconde as sugestões, sem afetar o foco
-        searchSuggestions.innerHTML = '';  // Limpa as sugestões
-    }
-});
+// Ajuste do comportamento de fechamento ao clicar fora do campo no mobil
 
 // Ajuste de layout de cards dependendo da largura da tela
 function atualizarLayoutCards() {
@@ -185,14 +197,6 @@ atualizarLayoutCards();
 window.addEventListener('resize', atualizarLayoutCards);
 
 // Função para garantir que o search-input fique visível no desktop
-function toggleSearchInputVisibility() {
-    const searchInput = document.getElementById('search-input');
-    if (window.matchMedia("(min-width: 768px)").matches) {
-        searchInput.style.display = 'block';  // Sempre visível no desktop
-    } else {
-        searchInput.style.display = 'none';  // Oculta no mobile
-    }
-}
 
 // Chama a função inicialmente e sempre que a tela for redimensionada
 toggleSearchInputVisibility();
