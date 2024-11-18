@@ -121,12 +121,14 @@ function closeSuggestions() {
 
     // Verifica se o campo de pesquisa não está em foco e esconde as sugestões
     if (document.activeElement !== searchInput) {
+        console.log('foi essa')
         searchSuggestions.style.display = 'none';
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
+        searchInput.classList.remove('active');
     }
 }
 document.addEventListener('click', (event) => {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-bar');
     const suggestionsDiv = document.getElementById('search-suggestions');
 
     // Verifica se o clique foi fora do input e das sugestões
@@ -135,7 +137,7 @@ document.addEventListener('click', (event) => {
         !suggestionsDiv.contains(event.target) // Não está nas sugestões
     ) {
         suggestionsDiv.style.display = 'none'; // Esconde as sugestões
-        suggestionsDiv.innerHTML = ''; // Limpa o conteúdo (opcional)
+        searchInput.classList.remove('active');
     }
 });
 
@@ -150,9 +152,10 @@ document.getElementById('search-input').addEventListener('click', () => {
     }
 });
 
+const searchInput = document.getElementById('search-input');
 // Exibe sugestões ao clicar na barra de pesquisa
 document.getElementById('search-input').addEventListener('click', () => {
-    const searchInput = document.getElementById('search-input');
+    
     const searchSuggestions = document.getElementById('search-suggestions');
     if (searchInput.value.trim() !== '') fetchSuggestions();
 });
@@ -163,6 +166,7 @@ const searchBar = document.querySelector('.search-bar');
 
 searchButton.addEventListener('click', () => {
     searchBar.classList.toggle('active');
+    searchInput.focus();
 });
 
 // Ajuste do comportamento de fechamento ao clicar fora do campo no mobil
@@ -195,26 +199,4 @@ window.addEventListener('resize', atualizarLayoutCards);
 // Chama a função inicialmente e sempre que a tela for redimensionada
 
 // Função para atualizar a ordem dos elementos no header, dependendo do tamanho da tela
-function updateHeaderOrder() {
-    console.log('mudou a ordem')
-    const header = document.querySelector('.header');
-    const logo = document.querySelector('.logo-link');
-    const searchBar = document.querySelector('.search-bar');
-    const navIcons = document.querySelector('.nav-icons');
 
-    if (window.matchMedia("(max-width: 767px)").matches) {
-        // Mobile: logo, navicons, search bar
-        header.appendChild(navIcons);
-        header.appendChild(logo);
-        header.appendChild(searchBar);
-    } else {
-        // Desktop: logo, search bar, navicons
-        header.appendChild(logo);
-        header.appendChild(searchBar);
-        header.appendChild(navIcons);
-    }
-}
-
-// Inicializa a ordem correta ao carregar e sempre que redimensionar
-updateHeaderOrder();
-window.addEventListener('resize', updateHeaderOrder);
