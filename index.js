@@ -127,8 +127,6 @@ function closeSuggestions() {
     }
 }
 
-// Detecta quando o campo de pesquisa perde o foco (blur) e fecha as sugestões
-document.getElementById('search-input').addEventListener('blur', closeSuggestions);
 
 // Exibe sugestões ao clicar na barra de pesquisa
 document.getElementById('search-input').addEventListener('click', () => {
@@ -161,7 +159,6 @@ window.addEventListener('touchstart', function(event) {
     if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
         searchSuggestions.style.display = 'none';
         searchSuggestions.innerHTML = '';  // Limpa as sugestões
-        searchInput.classList.remove('active');  // Fecha o campo de pesquisa no mobile
     }
 });
 
