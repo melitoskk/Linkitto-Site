@@ -140,7 +140,7 @@
  /* Adicionando estilo ao contêiner das categorias */
  /* Contêiner das categorias */
  .menu-categorias {
-  padding: 8px;
+   padding: 8px;
    background-color: #ccc;
    display: flex;
    flex-wrap: wrap;
@@ -319,23 +319,20 @@
  }
 
 
- .product-table {
-   display: flex;
-   /* Ativa o layout Flexbox */
-   flex-wrap: wrap;
-   /* Permite que os itens se ajustem para a próxima linha */
-   gap: 16px;
-   /* Espaçamento entre os itens (opcional, ajustável) */
+ .category-content .product-table {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 10px;
    width: 100%;
-   /* Garante que a tabela ocupe 100% da largura da janela */
-   padding: 16px;
-   /* Adiciona um pouco de espaçamento ao redor da tabela (opcional) */
    box-sizing: border-box;
-   /* Inclui padding e borda no cálculo da largura total */
  }
 
- .product-table .vertical-card {
-   width: 150px;
+ /* Estilo para cada produto na tabela */
+ .category-content .product-table .vertical-card {
+   width: 100%;
+   /* O item ocupará toda a largura da célula do grid */
+   box-sizing: border-box;
+   /* Garantir que as margens e o padding não afetem o tamanho do item */
  }
 
  .product-row {
@@ -903,8 +900,21 @@
      padding: 20px;
    }
 
-   .product-table .vertical-card {
+   .category-content .product-table {
+     display: flex;
+     flex-wrap: wrap;
+     /* Faz com que os itens que não cabem vão para a próxima linha */
+     gap: 20px;
+     /* Espaço entre os cards */
+     justify-content: flex-start;
+     /* Alinha os itens à esquerda */
+   }
+
+   .category-content .product-table .vertical-card {
      width: 200px;
+     /* Define a largura fixa para cada card */
+     box-sizing: border-box;
+     /* Inclui padding e bordas no cálculo do tamanho */
    }
 
    /* Seção "Em Alta" */
