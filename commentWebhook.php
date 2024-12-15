@@ -1,6 +1,6 @@
 <?php
 // Substitua pelo token de verificação fornecido pelo Instagram
-$verification_token = 'your_verification_token_here';
+$verification_token = 'linkittofoda';
 
 // Substitua pelo seu access token
 $access_token = 'IGAAW5GMlnC7xBZAE9sTGtQUGdkdGJuX2hUdVRpSWhJX2JxNGoyZA1h1WlgtUjhabzM4aEJTU1BRdVJCZA3BWXy1YeTVGVjJpcWtKanJzVnFvc3lad0cwODBqN1FLVnk5QlB3QkVxUjVmUWYyajFCSGtTd1RqT1FKZA0lNN1UtTDFyRQZDZD';
