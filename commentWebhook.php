@@ -1,5 +1,8 @@
 <?php
-// URL do token
+// Substitua pelo token de verificação fornecido pelo Instagram
+$verification_token = 'your_verification_token_here';
+
+// Substitua pelo seu access token
 $access_token = 'IGAAW5GMlnC7xBZAE9sTGtQUGdkdGJuX2hUdVRpSWhJX2JxNGoyZA1h1WlgtUjhabzM4aEJTU1BRdVJCZA3BWXy1YeTVGVjJpcWtKanJzVnFvc3lad0cwODBqN1FLVnk5QlB3QkVxUjVmUWYyajFCSGtTd1RqT1FKZA0lNN1UtTDFyRQZDZD';
 
 // Captura os dados recebidos via POST
@@ -21,5 +24,11 @@ if (isset($input['entry'])) {
             }
         }
     }
+}
+
+// Verificação do token de validação
+if (isset($_GET['hub_challenge']) && $_GET['hub_verify_token'] === $verification_token) {
+    echo $_GET['hub_challenge'];
+    exit;
 }
 ?>
