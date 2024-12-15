@@ -2,9 +2,6 @@
 // Substitua pelo token de verificação fornecido pelo Instagram
 $verification_token = 'linkittofoda';
 
-// Substitua pelo seu access token
-$access_token = 'IGAAW5GMlnC7xBZAE9sTGtQUGdkdGJuX2hUdVRpSWhJX2JxNGoyZA1h1WlgtUjhabzM4aEJTU1BRdVJCZA3BWXy1YeTVGVjJpcWtKanJzVnFvc3lad0cwODBqN1FLVnk5QlB3QkVxUjVmUWYyajFCSGtTd1RqT1FKZA0lNN1UtTDFyRQZDZD';
-
 // Arquivo para registrar logs
 $log_file = __DIR__ . '/webhook_log.txt';
 
@@ -19,17 +16,36 @@ if (isset($input['entry'])) {
     foreach ($input['entry'] as $entry) {
         foreach ($entry['changes'] as $change) {
             if ($change['field'] === 'comments') {
-                $comment_id = $change['value']['id'];
-                $post_id = $change['value']['parent_id'];
+                $comment_data = $change['value'];
 
-                // Log do comentário
-                file_put_contents($log_file, "Comentário detectado - ID da Postagem: $post_id, ID do Comentário: $comment_id" . PHP_EOL, FILE_APPEND);
+                // Extrai os detalhes do comentário
+                $comment_id = $comment_data['id'] ?? 'N/A';
+                $parent_id = $comment_data['parent_id'] ?? 'N/A';
+                $text = $comment_data['text'] ?? 'N/A';
+                $from_user = $comment_data['from']['username'] ?? 'Unknown';
+                $media_id = $comment_data['media']['id'] ?? 'Unknown';
+                $media_type = $comment_data['media']['media_product_type'] ?? 'Unknown';
 
-                // Exibe os IDs
-                echo "ID da Postagem: $post_id <br>";
-                echo "ID do Comentário: $comment_id <br>";
+                // Log dos detalhes do comentário
+                $log_message = "Comentário detectado: \n" .
+                               "Usuário: $from_user\n" .
+                               "Texto: $text\n" .
+                               "ID do Comentário: $comment_id\n" .
+                               "ID do Pai: $parent_id\n" .
+                               "ID da Mídia: $media_id\n" .
+                               "Tipo de Mídia: $media_type\n";
+                file_put_contents($log_file, $log_message . PHP_EOL, FILE_APPEND);
 
-                // Aqui você pode usar esses IDs para realizar alguma ação, como salvar em um banco de dados ou chamar outra API
+                // Exibe os detalhes (apenas para depuração, pode ser removido)
+                echo "Comentário detectado:<br>";
+                echo "Usuário: $from_user<br>";
+                echo "Texto: $text<br>";
+                echo "ID do Comentário: $comment_id<br>";
+                echo "ID do Pai: $parent_id<br>";
+                echo "ID da Mídia: $media_id<br>";
+                echo "Tipo de Mídia: $media_type<br>";
+
+                // Aqui você pode usar esses dados para acionar outras funções, como salvar no banco ou notificar.
             }
         }
     }
