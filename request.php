@@ -1,59 +1,34 @@
 <?php
-$access_token = 'IGAAW5GMlnC7xBZAE9sTGtQUGdkdGJuX2hUdVRpSWhJX2JxNGoyZA1h1WlgtUjhabzM4aEJTU1BRdVJCZA3BWXy1YeTVGVjJpcWtKanJzVnFvc3lad0cwODBqN1FLVnk5QlB3QkVxUjVmUWYyajFCSGtTd1RqT1FKZA0lNN1UtTDFyRQZDZD'; // Substitua com seu token
+$access_token = 'SEU_ACCESS_TOKEN';
 
-// URL para obter posts
-$url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,timestamp&access_token={$access_token}";
+// URL do vídeo
+$video_url = 'https://www.instagram.com/p/DDlp8EKszrf/';
 
-// Requisição CURL para obter os posts
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// Extrair a `id` do post da URL
+$exploded_url = explode('/', $video_url);
+$post_id = end($exploded_url);
 
-$response = curl_exec($ch);
+// URL para obter informações sobre o post
+$post_url = "https://graph.instagram.com/{$post_id}?fields=id,caption,media_url&access_token={$access_token}";
 
-if (curl_errno($ch)) {
-    echo 'Erro: ' . curl_error($ch);
+// Requisição CURL para obter informações do post
+$ch_post = curl_init();
+curl_setopt($ch_post, CURLOPT_URL, $post_url);
+curl_setopt($ch_post, CURLOPT_RETURNTRANSFER, 1);
+
+$response_post = curl_exec($ch_post);
+
+if (curl_errno($ch_post)) {
+    echo 'Erro ao obter informações do post: ' . curl_error($ch_post);
 } else {
-    $data = json_decode($response, true);
-    if (isset($data['error'])) {
-        echo 'Erro na API: ' . $data['error']['message'];
+    $data_post = json_decode($response_post, true);
+    if (isset($data_post['error'])) {
+        echo 'Erro na API: ' . $data_post['error']['message'];
     } else {
-        foreach ($data['data'] as $post) {
-            echo 'ID do Post: ' . $post['id'] . '<br>';
-            echo 'Legenda: ' . ($post['caption'] ?? 'Sem legenda') . '<br>';
-            echo 'Tipo de Mídia: ' . $post['media_type'] . '<br>';
-            echo 'URL da Mídia: ' . $post['media_url'] . '<br>';
-            echo 'Data/Hora: ' . $post['timestamp'] . '<br><br>';
-
-            // URL para obter comentários para cada post individual
-            $comments_url = "https://graph.instagram.com/{$post['id']}/comments?fields=id,text,created_time&access_token={$access_token}";
-
-            // Requisição CURL para obter os comentários
-            $ch_comments = curl_init();
-            curl_setopt($ch_comments, CURLOPT_URL, $comments_url);
-            curl_setopt($ch_comments, CURLOPT_RETURNTRANSFER, 1);
-
-            $response_comments = curl_exec($ch_comments);
-
-            if (curl_errno($ch_comments)) {
-                echo 'Erro nos comentários: ' . curl_error($ch_comments);
-            } else {
-                $data_comments = json_decode($response_comments, true);
-                if (isset($data_comments['data']) && count($data_comments['data']) > 0) {
-                    echo 'Comentários: <br>';
-                    foreach ($data_comments['data'] as $comment) {
-                        echo 'ID do Comentário: ' . $comment['id'] . '<br>';
-                        echo 'Texto: ' . $comment['text'] . '<br>';
-                        echo 'Data/Hora do Comentário: ' . $comment['created_time'] . '<br><br>';
-                    }
-                } else {
-                    echo 'Nenhum comentário encontrado.<br><br>';
-                }
-            }
-            curl_close($ch_comments);
-        }
+        echo 'ID do Post: ' . $data_post['id'] . '<br>';
+        echo 'Legenda: ' . ($data_post['caption'] ?? 'Sem legenda') . '<br>';
+        echo 'URL da Mídia: ' . $data_post['media_url'] . '<br>';
     }
 }
-curl_close($ch);
-
+curl_close($ch_post);
 ?>
